@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto — Febocar</title>
+<meta name="description" content="Pedí tu presupuesto de cargador, sistema solar con batería o instalación para tu auto eléctrico.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav-wrap">
+    <div class="logo"><span class="f-letter">F</span>ebocar</div>
+    <nav class="links">
+      <a href="index.html">Inicio</a>
+      <a href="cargadores.html">Cargadores</a>
+      <a href="solar-bateria.html">Solar + Batería</a>
+      <a href="servicio-tecnico.html">Servicio Técnico</a>
+      <a href="contacto.html" class="active">Contacto</a>
+    </nav>
+    <a href="contacto.html" class="cta-header">Pedí tu presupuesto</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">Inicio / Contacto</div>
+    <h1>Contanos tu caso</h1>
+    <p>Cargador solo, instalación, o el combo completo con solar y batería — respondemos con el presupuesto técnico.</p>
+  </div>
+</section>
+
+<section class="proceso">
+  <div class="container contacto-grid">
+    <div class="info-contacto">
+      <h3>Otras formas de contactarnos</h3>
+      <div class="item">
+        <div class="ic">💬</div>
+        <div>
+          <strong>WhatsApp</strong><br>
+          <a href="https://wa.me/5491125750323" target="_blank" rel="noopener" style="color:var(--azul); font-weight:700;">11 2575-0323</a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="ic">✉️</div>
+        <div>
+          <strong>Email</strong><br>
+          <a href="mailto:info@febocar.com" style="color:var(--azul); font-weight:700;">info@febocar.com</a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="ic">📷</div>
+        <div>
+          <strong>Redes sociales</strong><br>
+          <a href="https://facebook.com/Febocar" target="_blank" rel="noopener" style="color:var(--azul); font-weight:700;">Facebook: /Febocar</a><br>
+          <a href="https://instagram.com/Febo.car" target="_blank" rel="noopener" style="color:var(--azul); font-weight:700;">Instagram: @Febo.car</a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="ic">🏢</div>
+        <div>
+          <strong>Respaldo</strong><br>
+          <span style="color:var(--gris)">Un desarrollo de FEBECOS®, energía solar en Argentina desde hace más de 9 años.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <form id="form-contacto">
+        <div class="form-row">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-row">
+          <label for="telefono">Teléfono / WhatsApp</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="+54 9 ..." required>
+        </div>
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.com">
+        </div>
+        <div class="form-row">
+          <label for="interes">¿Qué te interesa?</label>
+          <select id="interes" name="interes">
+            <option>Comprar solo el cargador</option>
+            <option>Cargador + instalación</option>
+            <option>Combo solar + batería + cargador</option>
+            <option>Todavía no sé, quiero asesoramiento</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="mensaje">Contanos tu caso</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Auto (o modelo que estás por comprar), ciudad, si ya tenés paneles solares..."></textarea>
+        </div>
+        <!-- honeypot anti-spam: campo oculto, si un bot lo llena se descarta silenciosamente -->
+        <input type="text" name="website" id="website" style="position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
+        <button type="submit" class="btn btn-primary" style="width:100%;" id="btn-enviar">Enviar consulta</button>
+        <p id="form-status" style="font-size:0.85rem; margin-top:12px;"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+document.getElementById('form-contacto').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const btn = document.getElementById('btn-enviar');
+  const status = document.getElementById('form-status');
+  const data = {
+    nombre: document.getElementById('nombre').value,
+    telefono: document.getElementById('telefono').value,
+    email: document.getElementById('email').value,
+    interes: document.getElementById('interes').value,
+    mensaje: document.getElementById('mensaje').value,
+    website: document.getElementById('website').value,
+  };
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  status.style.color = 'var(--gris)';
+  status.textContent = '';
+  try {
+    const res = await fetch('/api/contacto', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
+    if (res.ok) {
+      status.style.color = 'var(--verde-oscuro)';
+      status.textContent = '¡Listo! Te vamos a contactar a la brevedad.';
+      e.target.reset();
+    } else {
+      status.style.color = '#c0392b';
+      status.textContent = json.error || 'No pudimos enviar tu consulta. Escribinos por WhatsApp.';
+    }
+  } catch (err) {
+    status.style.color = '#c0392b';
+    status.textContent = 'No pudimos enviar tu consulta. Escribinos por WhatsApp.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Enviar consulta';
+  }
+});
+</script>
+
+<footer class="site">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Febocar</h4>
+        <p style="font-size:0.88rem; max-width:280px;">Cargadores, energía solar y servicio técnico para movilidad eléctrica. Un desarrollo de FEBECOS®.</p>
+      </div>
+      <div>
+        <h4>Producto</h4>
+        <ul>
+          <li><a href="cargadores.html">Cargadores</a></li>
+          <li><a href="solar-bateria.html">Solar + Batería</a></li>
+          <li><a href="servicio-tecnico.html">Servicio Técnico</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="https://febecos.com" target="_blank" rel="noopener">Febecos.com</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://wa.me/5491125750323" target="_blank" rel="noopener">WhatsApp: 11 2575-0323</a></li>
+          <li><a href="mailto:info@febocar.com">info@febocar.com</a></li>
+          <li><a href="https://facebook.com/Febocar" target="_blank" rel="noopener">Facebook: /Febocar</a></li>
+          <li><a href="https://instagram.com/Febo.car" target="_blank" rel="noopener">Instagram: @Febo.car</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Febocar — un desarrollo de FEBECOS®.</span>
+      <span>Sitio en construcción — versión preliminar</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
