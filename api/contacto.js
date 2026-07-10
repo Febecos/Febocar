@@ -3,9 +3,9 @@ const { Resend } = require('resend');
 // Formulario de contacto público de Febocar. Molde reusado de
 // febecos-cursos/src/app/api/contacto/route.ts (honeypot + rate-limit + Resend).
 // NUNCA hardcodear la API key: siempre process.env.RESEND_API_KEY (Vercel).
-// Requiere el dominio febocar.com verificado en Resend (SPF/DKIM/DMARC) antes
-// de poder enviar como info@febocar.com — hasta entonces este endpoint
-// responderá 500 al intentar el envío real (coordinado con DEV ENVIOS).
+// Remitente/destino: febocar@febecos.com — reusa el dominio febecos.com ya
+// verificado en Resend (mismo usado por cursos@/cotiza@), sin necesidad de
+// verificar febocar.com aparte ni de resolver recepción de mail nueva.
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RATE = new Map();
@@ -81,8 +81,8 @@ module.exports = async (req, res) => {
     }
 
     const result = await new Resend(process.env.RESEND_API_KEY).emails.send({
-      from: `Febocar <${process.env.RESEND_FROM ?? 'info@febocar.com'}>`,
-      to: process.env.FEBOCAR_CONTACT_TO ?? 'info@febocar.com',
+      from: `Febocar <${process.env.RESEND_FROM ?? 'febocar@febecos.com'}>`,
+      to: process.env.FEBOCAR_CONTACT_TO ?? 'febocar@febecos.com',
       replyTo: email?.trim() || undefined,
       subject: `🔌 Nueva consulta Febocar — ${nombre}`,
       html: brandedEmail(`
