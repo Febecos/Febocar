@@ -189,6 +189,32 @@ nav.links a:hover, nav.links a.active { opacity: 1; color: var(--verde-claro); }
 .producto-img-wrap img { max-width: 100%; max-height: 340px; }
 .producto-img-wrap.claro { background: white; border: 1px solid var(--borde); }
 
+.social-bubbles {
+  display: flex;
+  gap: 14px;
+  margin-top: 6px;
+}
+.bubble {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+  transition: transform .15s;
+}
+.bubble:hover { transform: translateY(-3px); }
+.bubble svg { width: 22px; height: 22px; fill: white; }
+.bubble.wa { background: #25d366; }
+.bubble.fb { background: #1877f2; }
+.bubble.ig { background: radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+
+.social-bubbles-footer { display: flex; gap: 10px; margin-top: 10px; }
+.social-bubbles-footer .bubble { width: 36px; height: 36px; }
+.social-bubbles-footer .bubble svg { width: 18px; height: 18px; }
+
 .media-row {
   display: flex;
   gap: 36px;

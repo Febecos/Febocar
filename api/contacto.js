@@ -66,16 +66,16 @@ module.exports = async (req, res) => {
       return;
     }
 
-    if (!nombre?.trim() || !telefono?.trim()) {
-      res.status(400).json({ error: 'Completá nombre y teléfono' });
+    if (!nombre?.trim() || !telefono?.trim() || !email?.trim()) {
+      res.status(400).json({ error: 'Completá nombre, WhatsApp y email' });
       return;
     }
-    if (email && !EMAIL_RE.test(email)) {
+    if (!EMAIL_RE.test(email)) {
       res.status(400).json({ error: 'Email inválido' });
       return;
     }
-    const dom = (email?.split('@')[1] || '').toLowerCase();
-    if (dom && DISPOSABLE.has(dom)) {
+    const dom = (email.split('@')[1] || '').toLowerCase();
+    if (DISPOSABLE.has(dom)) {
       res.status(200).json({ ok: true });
       return;
     }
