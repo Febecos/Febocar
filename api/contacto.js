@@ -32,15 +32,16 @@ function esc(v) {
 // Coordinador — se guarda en columna origen + se mergea en origenes[].
 // Best-effort: si falla, se loguea pero NO tira la respuesta al cliente
 // (el email a febocar@febecos.com ya es la vía principal de aviso).
-async function upsertCRM({ nombre, telefono, email }) {
+async function upsertCRM({ nombre, telefono, email, localidad, consulta, mensaje }) {
   try {
+    const notas = [consulta, mensaje].filter(Boolean).join(' — ') || undefined;
     const res = await fetch('https://gestion.febecos.com/api/clientes/upsert', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${process.env.INTERNAL_SERVICE_SECRET}`,
       },
-      body: JSON.stringify({ nombre, whatsapp: telefono, email, origen: 'febocar' }),
+      body: JSON.stringify({ nombre, whatsapp: telefono, email, localidad: localidad || undefined, notas, origen: 'febocar' }),
     });
     if (!res.ok) {
       console.error('[contacto] CRM upsert rechazado:', res.status, await res.text().catch(() => ''));
@@ -73,7 +74,7 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { nombre, telefono, email, interes, mensaje, website } = req.body || {};
+    const { nombre, telefono, email, localidad, consulta, mensaje, website } = req.body || {};
 
     // Honeypot: si vino lleno, es un bot — responder 200 sin mandar nada.
     if (website) {
@@ -108,7 +109,7 @@ module.exports = async (req, res) => {
 
     // CRM y email en paralelo — el CRM es best-effort (no bloquea la
     // respuesta al usuario), el email sí se valida abajo.
-    const crmPromise = upsertCRM({ nombre, telefono, email });
+    const crmPromise = upsertCRM({ nombre, telefono, email, localidad, consulta, mensaje });
 
     const result = await new Resend(process.env.RESEND_API_KEY).emails.send({
       from: `Febocar <${process.env.RESEND_FROM ?? 'febocar@febecos.com'}>`,
@@ -121,7 +122,8 @@ module.exports = async (req, res) => {
           <strong>Nombre:</strong> ${esc(nombre)}<br/>
           <strong>Teléfono/WhatsApp:</strong> ${esc(telefono)}<br/>
           ${email ? `<strong>Email:</strong> ${esc(email)}<br/>` : ''}
-          ${interes ? `<strong>Interés:</strong> ${esc(interes)}<br/>` : ''}
+          ${localidad ? `<strong>Localidad:</strong> ${esc(localidad)}<br/>` : ''}
+          ${consulta ? `<strong>Consulta:</strong> ${esc(consulta)}<br/>` : ''}
           ${mensaje ? `<strong>Mensaje:</strong> ${esc(mensaje)}<br/>` : ''}
         </p>`),
     });
