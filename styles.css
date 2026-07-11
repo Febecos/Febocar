@@ -189,6 +189,107 @@ nav.links a:hover, nav.links a.active { opacity: 1; color: var(--verde-claro); }
 .producto-img-wrap img { max-width: 100%; max-height: 340px; }
 .producto-img-wrap.claro { background: white; border: 1px solid var(--borde); }
 
+/* TARJETAS DE PRODUCTO (estilo tienda: foto grande + specs + CTA) */
+.producto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  margin: 30px 0;
+}
+.producto-card {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow .2s, transform .2s;
+}
+.producto-card:hover {
+  box-shadow: 0 18px 44px rgba(14,74,120,0.14);
+  transform: translateY(-5px);
+}
+.producto-card .foto {
+  background: linear-gradient(160deg, #f7f8fa, #eef1f4);
+  padding: 26px;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.producto-card .foto img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+.producto-card .foto .marca-chip {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 800;
+  background: white;
+  color: var(--verde-oscuro);
+  border-radius: 999px;
+  padding: 4px 11px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.producto-card .info {
+  padding: 22px 22px 26px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.producto-card h3 {
+  font-size: 1.22rem;
+  color: var(--azul);
+  margin: 0 0 4px;
+}
+.producto-card .tagline {
+  font-size: 0.85rem;
+  color: var(--gris);
+  margin: 0 0 14px;
+}
+.producto-card .badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.producto-card .badge {
+  background: var(--fondo-alt);
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  padding: 4px 11px;
+  font-size: 0.75rem;
+  color: var(--texto);
+  font-weight: 700;
+}
+.producto-card .cta-row { margin-top: auto; }
+.producto-card .cta-row a {
+  display: block;
+  text-align: center;
+  background: var(--verde);
+  color: white;
+  font-weight: 700;
+  font-family: var(--f-titulo);
+  padding: 11px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+.producto-card .cta-row a:hover { background: var(--verde-oscuro); }
+
+.specs-detalladas summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--azul);
+  padding: 12px 0;
+  font-size: 0.95rem;
+}
+
 .social-bubbles {
   display: flex;
   gap: 14px;
