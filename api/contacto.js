@@ -27,6 +27,32 @@ function esc(v) {
   ));
 }
 
+// Enganche al CRM único de FEBECOS (patrón D1, mismo que Selector/ROI/
+// Revendedores/Cursos). Origen "febocar" confirmado por GESTIÓN vía
+// Coordinador — se guarda en columna origen + se mergea en origenes[].
+// Best-effort: si falla, se loguea pero NO tira la respuesta al cliente
+// (el email a febocar@febecos.com ya es la vía principal de aviso).
+async function upsertCRM({ nombre, telefono, email }) {
+  try {
+    const res = await fetch('https://gestion.febecos.com/api/clientes/upsert', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.INTERNAL_SERVICE_SECRET}`,
+      },
+      body: JSON.stringify({ nombre, whatsapp: telefono, email, origen: 'febocar' }),
+    });
+    if (!res.ok) {
+      console.error('[contacto] CRM upsert rechazado:', res.status, await res.text().catch(() => ''));
+      return null;
+    }
+    return await res.json();
+  } catch (err) {
+    console.error('[contacto] CRM upsert error:', err);
+    return null;
+  }
+}
+
 function brandedEmail(bodyHtml) {
   return `
     <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1c1c1c">
@@ -80,6 +106,10 @@ module.exports = async (req, res) => {
       return;
     }
 
+    // CRM y email en paralelo — el CRM es best-effort (no bloquea la
+    // respuesta al usuario), el email sí se valida abajo.
+    const crmPromise = upsertCRM({ nombre, telefono, email });
+
     const result = await new Resend(process.env.RESEND_API_KEY).emails.send({
       from: `Febocar <${process.env.RESEND_FROM ?? 'febocar@febecos.com'}>`,
       to: process.env.FEBOCAR_CONTACT_TO ?? 'febocar@febecos.com',
@@ -106,6 +136,9 @@ module.exports = async (req, res) => {
       res.status(502).json({ error: 'No se pudo enviar, intentá de nuevo o escribinos por WhatsApp' });
       return;
     }
+
+    const crm = await crmPromise; // asegura que termine antes de que la función se corte
+    if (crm) console.log('[contacto] CRM upsert ok:', crm.accion, crm.cliente_id);
 
     res.status(200).json({ ok: true });
   } catch (err) {
