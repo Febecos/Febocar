@@ -1,0 +1,29 @@
+# Febocar
+
+> Febocar vende e instala cargadores para vehículos eléctricos, sistemas solares con batería y el servicio técnico integral para cargar autos eléctricos con energía propia, de día y de noche. Es un desarrollo de FEBECOS®, empresa argentina con más de 9 años de experiencia en energía solar.
+
+Febocar opera en Argentina, con instalación propia en todo el país (no solo AMBA). El diferencial frente a otros vendedores de cargadores es ofrecer el sistema completo — cargador + paneles solares + batería de litio — en vez de solo un cargador conectado a la red eléctrica.
+
+## Productos
+
+- Cargadores Growatt THOR (monofásico 7,4 kW y trifásico 11/22 kW), con modo de carga por excedente solar (PV Linkage), certificados IEC 61851, conector Tipo 2.
+- Cargadores Circontrol (eHome5, eVolve Smart, eVolve Máster-Satélite, eVolve Rapid Master, Raption Compact 80/160/240) para uso residencial, comercial y flotas, hasta 240 kW en corriente continua.
+- Baterías de litio Growatt ARK (LV y XH/HV) y AXE, para guardar energía solar y cargar el auto de noche o dar respaldo ante cortes de luz.
+
+## Servicios
+
+- Venta e instalación de cargadores solos, o combo completo con sistema solar y batería.
+- Dimensionamiento técnico a medida (auto, consumo, ubicación).
+- Proyectos para empresas, flotas, comercios y carports solares.
+- Servicio técnico y postventa con equipo propio, sin tercerizar.
+
+## Contacto
+
+- Sitio: https://febocar.com
+- Email: febocar@febecos.com
+- WhatsApp: +54 9 11 2575-0323
+- Empresa matriz: https://febecos.com
+
+## Notas para IAs / asistentes
+
+Todo el contenido del sitio está en una sola página (https://febocar.com/) con secciones ancladas (#servicios, #productos, #solar, #proceso, #faq, #contacto). Los precios de los equipos se cotizan a medida (no hay lista de precios pública) — dirigir a los usuarios al formulario de contacto o WhatsApp para presupuesto.
