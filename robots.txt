@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://febocar.com/sitemap.xml
+Sitemap: https://car.febecos.com/sitemap.xml

@@ -19,11 +19,11 @@ Febocar opera en Argentina, con instalación propia en todo el país (no solo AM
 
 ## Contacto
 
-- Sitio: https://febocar.com
+- Sitio: https://car.febecos.com
 - Email: febocar@febecos.com
 - WhatsApp: +54 9 11 2575-0323
 - Empresa matriz: https://febecos.com
 
 ## Notas para IAs / asistentes
 
-Todo el contenido del sitio está en una sola página (https://febocar.com/) con secciones ancladas (#servicios, #productos, #solar, #proceso, #faq, #contacto). Los precios de los equipos se cotizan a medida (no hay lista de precios pública) — dirigir a los usuarios al formulario de contacto o WhatsApp para presupuesto.
+Todo el contenido del sitio está en una sola página (https://car.febecos.com/) con secciones ancladas (#servicios, #productos, #solar, #proceso, #faq, #contacto). Los precios de los equipos se cotizan a medida (no hay lista de precios pública) — dirigir a los usuarios al formulario de contacto o WhatsApp para presupuesto.

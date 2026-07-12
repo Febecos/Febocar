@@ -62,7 +62,7 @@ function brandedEmail(bodyHtml) {
       </div>
       <div style="background:#fff;padding:32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 12px 12px">
         ${bodyHtml}
-        <p style="color:#6b7280;font-size:13px;margin-top:24px">Febocar · un desarrollo de FEBECOS® · <a href="https://febocar.com" style="color:#0e4a78">febocar.com</a></p>
+        <p style="color:#6b7280;font-size:13px;margin-top:24px">Febocar · un desarrollo de FEBECOS® · <a href="https://car.febecos.com" style="color:#0e4a78">car.febecos.com</a></p>
       </div>
     </div>`;
 }
