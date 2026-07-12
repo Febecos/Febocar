@@ -2,7 +2,7 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "febocar.com" }],
+      "has": [{ "type": "header", "key": "host", "value": "febocar.com" }],
       "destination": "https://car.febecos.com/:path*",
       "permanent": true
     }
