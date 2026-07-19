@@ -1,5 +1,9 @@
 {
   "redirects": [
-    { "source": "/(.*)", "destination": "https://febecos.com/car", "permanent": true }
+    { "source": "/((?!selector).*)", "destination": "https://febecos.com/car", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/selector", "destination": "https://febecos.com/car/selector" },
+    { "source": "/selector/:path*", "destination": "https://febecos.com/car/selector/:path*" }
   ]
 }
